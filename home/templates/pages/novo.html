@@ -1,0 +1,62 @@
+{% extends 'partials/base.html' %} {% block content %}
+  <h2 class="my-4 text-center">
+    {% if cliente %}
+      Alterar Cliente
+    {% else %}
+      Novo Cliente
+    {% endif %}
+  </h2>
+
+  <div class="glass col-lg-8 mx-auto mb-5 p-3 p-lg-4 rounded">
+    <form method="post" class="col-lg-11 mx-auto" action="{% url 'gerenciar' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" value="{{ cliente.nome }}" id="nome" required="true" />
+      </div>
+      <div class="mb-3">
+        <label for="dtNasc" class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" name="dtNasc" value="{{ cliente.dtNasc|date:'Y-m-d' }}" id="dtNasc" required="true" />
+      </div>
+      <div class="mb-3">
+        <label for="genero" class="form-label">Gênero</label>
+        {{ form.genero }}
+      </div>
+
+      <div class="mb-3">
+        <label for="telefone" class="form-label">Telefone</label>
+        <input type="text" class="form-control" name="telefone" value="{{ cliente.telefone }}" id="telefone" required="true" />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" name="email" value="{{ cliente.email }}" id="email" required="true" />
+      </div>
+
+      <div class="mb-3">
+        <label for="estado" class="form-label">Estado</label>
+        {{ form.estado }}
+      </div>
+
+      {% if cliente %}
+        <input type="hidden" name="id" value="{{ cliente.id }}" />
+      {% endif %}
+
+     <div class="d-flex justify-content-center">
+       <button type="submit" id="submit" class="btn btn-primary w-50 my-2 ">
+        {% if cliente %}
+          Alterar
+        {% else %}
+          Cadastrar
+        {% endif %}
+      </button>
+     </div>
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', (e) => {
+      document.querySelector('#submit').setAttribute('disabled', true)
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row my-5">
+        <div class="col-lg-8 mx-auto">
+            <form method="get" action="{% url "search" %}"class=" d-flex" role="search" data-bs-theme="light">
+                <input class="form-control me-2" type="search" name="search" placeholder="Busca por nome" aria-label="Search">
+                <button class="btn  btn-light" type="submit">Pesquisar</button>
+            </form>
+        </div>
+    </div>
+    {% if clientes %}
+
+    <div class="table-responsive-lg">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th class="col-2" scope="col">Nome </th>
+                    <th class="col-2" scope="col">Data Nascimento</th>
+                    <th class="col-2" scope="col">Gênero</th>
+                    <th scope="col-2">E-mail </th>
+                    <th scope="col-2">Telefone </th>
+                    <th class="col-1" scope="col">Estado </th>
+                    <th class="col-2" scope="col" colspan="2"> Gerenciar </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+
+                   {% for cliente in clientes %}
+                   <tr class="text-center">
+
+                   <td class="col-2 align-middle" scope="col"> {{cliente.nome}} </td>
+                   <td class="col-2 align-middle" scope="col">{{cliente.dtNasc|date:"d M Y"}}</td>
+                   <td class="col-2 align-middle" scope="col">{{cliente.genero}}</td>
+                   <td class="align-middle col-2" scope="col">{{cliente.email}} </td>
+                   <td class="align-middle col-2" class="col">{{cliente.telefone}} </td>
+                   <td class="col-1 align-middle" scope="col">{{cliente.estado}} </td>
+
+                   <td class="col-1 align-middle" scope="col">
+                    <button class="btn btn-info" onclick="location.href='/gerenciar/{{cliente.id}}'">Editar</button>
+                   </td>
+
+                   <td class="col-1 align-middle" scope="col">
+                    <button class="btn btn-danger" onclick="location.href='/excluir/{{cliente.id}}'">Excluir</button> </td>
+
+                </tr>
+
+                   {% endfor %}
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+    {% else %}
+
+    <div class="bg-white p-5 vertical-align-middle rounded">
+        <h3 class="text-center" style="color: black;"> Nenhum Cliente Cadastrado</h3>
+    </div>
+
+
+    {% endif %}
+</div>
+{% endblock %}

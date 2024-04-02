@@ -14,7 +14,7 @@ O projeto por enquanto está na sua versão 0.5b
 
 Clone o repositório usando o seguinte comando:
 
-git clone
+git clone [Link](https://github.com/erickystn/agenda_python.git)
 
 ## Instale as dependências usando o pip:
 
